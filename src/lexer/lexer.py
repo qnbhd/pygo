@@ -38,12 +38,12 @@ class Lexer:
     def adj_sub(self):
         hatch_tokens = []
         i = 0
-        while i < len(self.tokens_) - 1:
+        while i < len(self.tokens_):
             if i < len(self.tokens_) - 2 and self.is_adj_decimal(self.tokens_[i], self.tokens_[i + 1]):
                 token = Token(self.tokens_[i].lexeme_ + self.tokens_[i + 1].lexeme_ + self.tokens_[i + 2].lexeme_)
                 hatch_tokens.append(token)
                 i += 3
-            elif self.is_adj_operator(self.tokens_[i], self.tokens_[i + 1]):
+            elif i < len(self.tokens_) - 1 and self.is_adj_operator(self.tokens_[i], self.tokens_[i + 1]):
                 token = Token(self.tokens_[i].lexeme_ + self.tokens_[i + 1].lexeme_)
                 hatch_tokens.append(token)
                 i += 2
@@ -64,6 +64,7 @@ class Lexer:
             else:
                 hatch_tokens.append(Token(self.tokens_[i].lexeme_))
                 i += 1
+
         self.tokens_ = hatch_tokens
 
     @staticmethod
@@ -78,4 +79,4 @@ class Lexer:
 
     @staticmethod
     def is_sep(sym):
-        return sym in " ()+-*/[]<>{}=!:;.,\n\t"
+        return sym in " ()+-*/[]<>{}=!:;.,\n\t\r"

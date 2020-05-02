@@ -60,6 +60,8 @@ class TokensMap:
         ".": t.POINT,
         "!": t.EXCLAMATION,
         "?": t.QUESTION,
-        ",": t.COMMA
+        ",": t.COMMA,
+
+        '\0' : t.EOF
 
     }

@@ -73,4 +73,6 @@ class token_type(Enum):
     EXCLAMATION = auto()
 
     LEFT_STRING = auto(),
-    RIGHT_STRING = auto()
+    RIGHT_STRING = auto(),
+
+    EOF = auto()
