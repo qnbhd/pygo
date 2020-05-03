@@ -50,7 +50,7 @@ class Lexer:
             elif self.tokens_[i].type_ == token_type.LEFT_STRING:
                 buffer = self.tokens_[i].lexeme_
                 i += 1
-                while i < len(self.tokens_) - 1:
+                while i < len(self.tokens_):
                     buffer += self.tokens_[i].lexeme_
                     if self.tokens_[i].type_ == token_type.RIGHT_STRING or \
                             (len(self.tokens_[i].lexeme_) == 1 and self.tokens_[i].type_ == token_type.STRING_CONST):

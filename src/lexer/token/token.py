@@ -3,8 +3,6 @@ from src.lexer.token.map_of_tokens import TokensMap
 
 
 class Token:
-    lexeme_ = ""
-    type_ = token_type.IDENTIFIER
 
     def __init__(self, lexeme: str):
         self.lexeme_ = lexeme

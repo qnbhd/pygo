@@ -27,21 +27,20 @@ class AST:
         # print(" " * level, end='')
         buffer = ""
         for i in range(level):
-            buffer += '| '
+            buffer += '│ '
 
         print(buffer, end='')
 
-        print("[*] ", end='')
+        print("-> ", end='')
         print(self.calculate_name(current_node.type_), end=' ')
         if current_node.value_ != "":
-            print("(" + current_node.value_ + ")")
+            print("<=" + current_node.value_ + ">=")
         else:
-            print()
+            print("")
 
-        self._print(current_node.op1_, level + 1)
-        self._print(current_node.op2_, level + 1)
-        self._print(current_node.op3_, level + 1)
-        self._print(current_node.op4_, level + 1)
+        for child_node in current_node.child_nodes_:
+           self._print(child_node, level+1)
+
 
     def print(self):
         self._print(self.tree, 0)

@@ -19,13 +19,6 @@ class Parser:
         self.pos_ = 0
         self.size_ = len(self.tokens_)
 
-    def parse(self):
-        result = list()
-        """while not self.match(token_type.EOF):
-            result.append(self.program())"""
-        self.ast_.tree = self.program()
-        self.ast_.print()
-
     def get(self, relative_position) -> Token:
         position = self.pos_ + relative_position
         if position >= self.size_:
@@ -39,11 +32,21 @@ class Parser:
         self.pos_ += 1
         return True
 
+    def parse(self):
+
+        self.ast_.tree = Node(NodeType.PROGRAM)
+        statements = self.program()
+        for statement in statements:
+            self.ast_.tree.hangup_child(statement)
+        self.ast_.print()
+
     def program(self):
         if debug:
             print("[*] program")
-        statement_node = self.statement()
-        return statement_node
+        statements_nodes = list()
+        while not self.match(token_type.EOF):
+            statements_nodes.append(self.statement())
+        return statements_nodes
 
     def statement(self):
         if debug:
@@ -84,11 +87,11 @@ class Parser:
 
         while True:
             if self.match(token_type.STAR):
-                temp_node = self.multy()
+                temp_node = self.unary()
                 new_node = Node(NodeType.MUL, '', unary_node, temp_node)
                 return new_node
             if self.match(token_type.SLASH):
-                temp_node = self.multy()
+                temp_node = self.unary()
                 new_node = Node(NodeType.DIV, '', unary_node, temp_node)
                 return new_node
             break
@@ -104,6 +107,11 @@ class Parser:
             new_node = Node(NodeType.UNARY_MINUS, '', temp_node)
             return new_node
 
+        if self.match(token_type.PLUS):
+            temp_node = self.primary()
+            new_node = Node(NodeType.UNARY_PLUS, '', temp_node)
+            return new_node
+
         temp_node = self.primary()
 
         return temp_node
@@ -112,7 +120,8 @@ class Parser:
         if debug:
             print("[*] primary")
         current = self.get(0)
-        #print("BBB", current)
+        if debug:
+            print("CURRENT ->", current)
         if self.match(token_type.NUMBER_CONST):
             number_node = Node(NodeType.NUMBER_CONST, current.lexeme_)
             return number_node
