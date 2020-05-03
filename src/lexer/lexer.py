@@ -49,17 +49,19 @@ class Lexer:
                 i += 2
             elif self.tokens_[i].type_ == token_type.LEFT_STRING:
                 buffer = self.tokens_[i].lexeme_
+                adj_half = self.get_adj_half(self.tokens_[i])
+                print('im her')
                 i += 1
                 while i < len(self.tokens_):
                     buffer += self.tokens_[i].lexeme_
-                    if self.tokens_[i].type_ == token_type.RIGHT_STRING or \
+                    if self.tokens_[i].type_ == adj_half or \
                             (len(self.tokens_[i].lexeme_) == 1 and self.tokens_[i].type_ == token_type.STRING_CONST):
                         token = Token(buffer)
                         hatch_tokens.append(token)
                         break
                     i += 1
                 else:
-                    raise Exception("[RIGHT \" EXPECTED]")
+                    raise Exception("[RIGHT HALF OF ADJUSTABLE OPERATOR" + str(adj_half) + "EXPECTED]")
                 i += 1
             else:
                 hatch_tokens.append(Token(self.tokens_[i].lexeme_))
@@ -72,10 +74,20 @@ class Lexer:
         return first.type_ == token_type.NUMBER_CONST and second.type_ == token_type.POINT
 
     @staticmethod
+    def get_adj_half(first: Token):
+        if first.type_ == token_type.LEFT_STRING:
+            return token_type.RIGHT_STRING
+        if first.type_ == token_type.LEFT_MULTI_LINE_COMMENT:
+            return token_type.RIGHT_MULTI_LINE_COMMENT
+        return None
+
+    @staticmethod
     def is_adj_operator(first: Token, second: Token) -> bool:
-        return (first.lexeme_ in "<>=+-*/:" and second.lexeme_ == "=") or \
+        return (first.lexeme_ in "<>=+-*/:!" and second.lexeme_ == "=") or \
                (first.lexeme_ == "+" and second.lexeme_ == "+") or \
-               (first.lexeme_ == "-" and second.lexeme_ == "-")
+               (first.lexeme_ == "-" and second.lexeme_ == "-") or \
+               (first.lexeme_ == "/" and second.lexeme_ == "*") or \
+               (first.lexeme_ == "*" and second.lexeme_ == "/")
 
     @staticmethod
     def is_sep(sym):

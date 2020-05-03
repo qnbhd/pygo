@@ -28,6 +28,7 @@ class TokensMap:
 
         "for": t.FOR,
         "if": t.IF,
+        "else": t.ELSE,
         "switch": t.SWITCH,
 
         "type": t.TYPE,
@@ -52,6 +53,7 @@ class TokensMap:
         ">": t.GREATER,
 
         "==": t.EQUAL,
+        "!=": t.NOT_EQUAL,
         "<=": t.LESS_OR_EQUAL,
         ">=": t.GREATER_OR_EQUAL,
 
@@ -62,6 +64,11 @@ class TokensMap:
         "?": t.QUESTION,
         ",": t.COMMA,
 
-        '\0' : t.EOF
+        '\0' : t.EOF,
+
+        "//": t.ONE_LINE_COMMENT,
+        "/*": t.LEFT_MULTI_LINE_COMMENT,
+        "*/": t.RIGHT_MULTI_LINE_COMMENT
+
 
     }

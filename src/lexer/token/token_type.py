@@ -32,6 +32,7 @@ class token_type(Enum):
 
     FOR = auto(),
     IF = auto(),
+    ELSE = auto(),
     SWITCH = auto(),
 
     TYPE = auto(),
@@ -61,6 +62,7 @@ class token_type(Enum):
     GREATER = auto(),  # >
 
     EQUAL = auto(),  # ==
+    NOT_EQUAL = auto(),
     LESS_OR_EQUAL = auto(),  # <=
     GREATER_OR_EQUAL = auto(),  # >=
 
@@ -76,3 +78,7 @@ class token_type(Enum):
     RIGHT_STRING = auto(),
 
     EOF = auto()
+
+    ONE_LINE_COMMENT = auto(),
+    LEFT_MULTI_LINE_COMMENT = auto(),
+    RIGHT_MULTI_LINE_COMMENT = auto()

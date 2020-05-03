@@ -6,6 +6,6 @@ from src.parser.ast.node_type import NodeType
 from src.parser.parser import Parser
 
 if __name__ == "__main__":
-    parser = Parser("src/example.go")
+    parser = Parser("example.go")
     ss = parser.parse()
 

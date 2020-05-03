@@ -91,3 +91,5 @@ class NodeType(Enum):
     FUNCTION_IMPLEMENTATION_NEW_ARGS = auto(),
     FUNCTION_IMPLEMENTATION_NEW_ARG = auto(),
 
+    PRINT_OPERATOR = auto()
+
