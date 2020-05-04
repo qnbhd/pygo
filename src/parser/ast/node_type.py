@@ -91,5 +91,12 @@ class NodeType(Enum):
     FUNCTION_IMPLEMENTATION_NEW_ARGS = auto(),
     FUNCTION_IMPLEMENTATION_NEW_ARG = auto(),
 
-    PRINT_OPERATOR = auto()
+    PRINT_OPERATOR = auto(),
+
+    OR = auto(),
+    AND = auto(),
+
+    BRACKET_BLOCK = auto(),
+    PACKAGE = auto(),
+    IMPORT = auto()
 

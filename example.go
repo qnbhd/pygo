@@ -1,9 +1,20 @@
-for a := 0; 5 <= 5; a := 10 {
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    a := "string"
     b := 5
+
+    if a == "anime" {
+        fmt.Println("Yes")
+    } else {
+        fmt.Println("NO")
+    }
+
+    for i := 0; i <= 10; i := i + 1 {
+        fmt.Println("cycle")
+    }
 }
-if 5 <= 10 {
-    variable := "my st
-                 ring"
-}
-z := (4+5)*7-1
-fmt.Println("Hello, World")

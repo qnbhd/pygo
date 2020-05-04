@@ -68,7 +68,10 @@ class TokensMap:
 
         "//": t.ONE_LINE_COMMENT,
         "/*": t.LEFT_MULTI_LINE_COMMENT,
-        "*/": t.RIGHT_MULTI_LINE_COMMENT
+        "*/": t.RIGHT_MULTI_LINE_COMMENT,
+
+        "||": t.OR,
+        "&&": t.AND
 
 
     }

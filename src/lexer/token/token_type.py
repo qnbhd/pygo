@@ -81,4 +81,7 @@ class token_type(Enum):
 
     ONE_LINE_COMMENT = auto(),
     LEFT_MULTI_LINE_COMMENT = auto(),
-    RIGHT_MULTI_LINE_COMMENT = auto()
+    RIGHT_MULTI_LINE_COMMENT = auto(),
+
+    AND = auto(),
+    OR = auto()

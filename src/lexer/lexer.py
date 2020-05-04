@@ -87,7 +87,9 @@ class Lexer:
                (first.lexeme_ == "+" and second.lexeme_ == "+") or \
                (first.lexeme_ == "-" and second.lexeme_ == "-") or \
                (first.lexeme_ == "/" and second.lexeme_ == "*") or \
-               (first.lexeme_ == "*" and second.lexeme_ == "/")
+               (first.lexeme_ == "*" and second.lexeme_ == "/") or \
+               (first.lexeme_ == "&" and second.lexeme_ == "&") or \
+               (first.lexeme_ == "|" and second.lexeme_ == "|")
 
     @staticmethod
     def is_sep(sym):
