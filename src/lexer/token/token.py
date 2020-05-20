@@ -1,28 +1,30 @@
-from src.lexer.token.token_type import token_type
+from src.lexer.token.token_type import TokenType
 from src.lexer.token.map_of_tokens import TokensMap
 
 
 class Token:
+    lexeme: str
+    type: TokenType
 
-    def __init__(self, lexeme: str):
-        self.lexeme_ = lexeme
-        self.type_ = self.wto(lexeme)
+    def __init__(self, lexeme_: str):
+        self.lexeme = lexeme_
+        self.type = self.wto(lexeme_)
 
-    def wto(self, lexeme: str) -> token_type:
+    def wto(self, lexeme: str) -> TokenType:
         if self.is_string(lexeme):
-            return token_type.STRING_CONST
+            return TokenType.STRING_CONST
         if self.is_left_string(lexeme):
-            return token_type.LEFT_STRING
+            return TokenType.LEFT_STRING
         if self.is_right_string(lexeme):
-            return token_type.RIGHT_STRING
+            return TokenType.RIGHT_STRING
 
         temporary = TokensMap.map.get(lexeme)
         if temporary is not None:
             return temporary
         if self.is_number(lexeme):
-            return token_type.NUMBER_CONST
+            return TokenType.NUMBER_CONST
 
-        return token_type.IDENTIFIER
+        return TokenType.IDENTIFIER
 
     @staticmethod
     def is_number(lexeme: str) -> bool:
@@ -46,4 +48,4 @@ class Token:
         return False
 
     def __str__(self):
-        return "(" + str(self.type_) + ", " + self.lexeme_ + ")"
+        return "(" + str(self.type) + ", " + self.lexeme + ")"

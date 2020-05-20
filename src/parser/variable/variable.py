@@ -1,0 +1,13 @@
+class Variable:
+    name: str
+
+    def __init__(self, name_: str):
+        self.name = name_
+
+    def name(self) -> str:
+        return self.name
+
+    def print(self):
+        print('Name: ' + self.name)
+
+

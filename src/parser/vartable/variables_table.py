@@ -1,27 +1,40 @@
+from src.parser.variable.variable import Variable
+
+
 class VariableTable:
+    table: list
 
     def __init__(self):
-        self.table_ = dict()
+        self.table = list()
 
-    def put_variable(self, variable, value):
-        if variable in self.table_:
-            self.table_[variable].append(value)
-        else:
-            self.table_[variable] = [value]
+    # Функция для добавления переменной в таблицу
+    # Если переменная с таким именем уже существует то
+    # возбуждается исключение
+    # name - имя переменной
+    def add(self, name: str):
+        if self.contains(name):
+            raise Exception("The variable '" + name + "' has already been declared!")
 
-    def var_is_exists(self, variable):
-        if variable not in self.table_:
-            return False
-        return True
+        self.table.append(Variable(name))
 
-    def remove_variable(self, variable):
-        if not self.var_is_exists(variable):
-            raise Exception("Variable doesn't exist")
-        self.table_[variable].pop()
+    # Функция проверяет наличие переменной с таким именем
+    # name - имя переменной
+    def contains(self, name: str) -> bool:
+        for variable in self.table:
+            if variable.name == name:
+                return True
+        return False
 
-    def get_variable(self, variable):
-        if variable not in self.table_:
-            return None
-        return self.table_[variable][-1]
+    # Функция для получения переменной по имени
+    # В случае, если переменная не найдена возбуждается исключение
+    # name - имя переменной
+    def get(self, name: str) -> Variable:
+        for variable in self.table:
+            if variable.name == name:
+                return variable
+        raise Exception("Variable not found!")
 
-
+    # Функция для печати таблицы
+    def print(self):
+        for variable in self.table:
+            variable.print()

@@ -1,7 +1,9 @@
 from enum import Enum, auto
 
 
-class token_type(Enum):
+class TokenType(Enum):
+    NONE = auto(),
+
     NUMBER_CONST = auto(),
     STRING_CONST = auto(),
 

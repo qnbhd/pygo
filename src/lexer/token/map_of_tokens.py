@@ -1,4 +1,4 @@
-from src.lexer.token.token_type import token_type as t
+from src.lexer.token.token_type import TokenType as t
 
 
 class TokensMap:
@@ -7,14 +7,14 @@ class TokensMap:
         "import" : t.IMPORT,
         "func" : t.FUNC,
         "main": t.MAIN,
-        
+
         "var": t.VAR,
         "int": t.INT,
         "float32": t.FLOAT32,
         "bool": t.BOOL,
         "string": t.STRING,
         "complex64": t.COMPLEX64,
-    
+
         "+": t.PLUS,
         "-": t.MINUS,
         "*": t.STAR,
@@ -64,7 +64,7 @@ class TokensMap:
         "?": t.QUESTION,
         ",": t.COMMA,
 
-        '\0' : t.EOF,
+        '\0': t.EOF,
 
         "//": t.ONE_LINE_COMMENT,
         "/*": t.LEFT_MULTI_LINE_COMMENT,

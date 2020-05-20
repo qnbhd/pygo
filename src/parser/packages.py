@@ -7,4 +7,4 @@ class Packages:
 
     def __init__(self):
         self.default_packages_space = dict()
-        self.default_packages_space['fmt'] = {'Println': NodeType.PRINT_OPERATOR}
+        #self.default_packages_space['fmt'] = {'Println': NodeType.PRINT_OPERATOR}

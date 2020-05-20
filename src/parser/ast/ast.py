@@ -1,49 +1,35 @@
-from src.parser.ast import node
 from src.parser.ast.node import Node
 from src.parser.ast.node_type import NodeType
-from math import exp
 
 
 class AST:
+    tree: Node
 
     def __init__(self):
         self.tree = None
 
-    def r_traversal(self, current_node):
-        if node is None:
-            return
-
-        # some actions
-
-        self.r_traversal(current_node.op1_)
-        self.r_traversal(current_node.op2_)
-        self.r_traversal(current_node.op3_)
-        self.r_traversal(current_node.op4_)
-
-    def _print(self, current_node, level):
+    def print_recursive(self, current_node: Node, level: int):
         if current_node is None:
             return
 
-        # print(" " * level, end='')
-        buffer = ""
         for i in range(level):
-            buffer += '│ '
+            print('   ', end='')
+        print("+-", end='')
 
-        print(buffer, end='')
+        print(self.calculate_name(current_node.type), end=' ')
 
-        print("-> ", end='')
-        print(self.calculate_name(current_node.type_), end=' ')
-        if current_node.value_ != "":
-            print("<=" + current_node.value_ + ">=")
+        if current_node.value != "":
+            print("'" + current_node.value + "'")
         else:
             print("")
 
-        for child_node in current_node.child_nodes_:
-           self._print(child_node, level+1)
-
+        self.print_recursive(current_node.op1, level + 1)
+        self.print_recursive(current_node.op2, level + 1)
+        self.print_recursive(current_node.op3, level + 1)
+        self.print_recursive(current_node.op4, level + 1)
 
     def print(self):
-        self._print(self.tree, 0)
+        self.print_recursive(self.tree, 0)
 
     @staticmethod
     def calculate_name(node_type: NodeType) -> str:

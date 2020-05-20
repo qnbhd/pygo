@@ -1,20 +1,21 @@
 package main
 
-import (
-    "fmt"
-)
-
 func main() {
-    a := "string"
     b := 5
+    c := 5
 
-    if a == "anime" {
-        fmt.Println("Yes")
-    } else {
-        fmt.Println("NO")
+    b = 100
+
+
+    for i := 0; i <= 10; i = i + 1 {
+        b = b + i
     }
 
-    for i := 0; i <= 10; i := i + 1 {
-        fmt.Println("cycle")
+    if b == 100 && c != 100 {
+        b = b + i * 8 - c + 98 * b * b / c
     }
+    else {
+        b = 1
+    }
+
 }
