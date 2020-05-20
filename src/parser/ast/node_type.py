@@ -7,7 +7,7 @@ class NodeType(Enum):
     VARIABLE_DECLARATION = auto(),
     USING_VARIABLE = auto(),
 
-    NUMBER_CONST = auto(),
+    INTEGER_CONST = auto(),
 
     STRING_CONST = auto(),
 

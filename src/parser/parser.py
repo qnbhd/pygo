@@ -6,7 +6,7 @@ from src.lexer.token.token import Token
 from src.parser.ast.node import Node
 from src.parser.ast.node import NodeType
 from src.parser.packages import Packages
-from src.parser.vartable.variables_table import VariableTable
+
 
 debug = True
 
@@ -20,7 +20,6 @@ class Parser:
 
     tokens_count: int
 
-    variables: VariableTable
 
     def __init__(self, file_path):
         self.lexer = Lexer()
@@ -33,7 +32,7 @@ class Parser:
 
         self.tokens_count = len(self.tokens)
         self.packages_map = Packages()
-        self.variables = VariableTable()
+
         self.in_block_not_main = False
 
     def get(self, relative_position: int) -> Token:
@@ -112,7 +111,7 @@ class Parser:
         print("-------------AST TREE-------------")
         self.ast.print()
         print("----------VARIABLE TABLE----------")
-        self.variables.print()
+        self.ast.variables.print()
 
     def bracket_expression(self) -> Node:
 
@@ -154,7 +153,8 @@ class Parser:
         else_block = None
         if self.match(TokenType.ELSE):
             node_type = NodeType.IF_ELSE
-            else_block = self.bracket_expression()
+            self.match(TokenType.IF)
+            else_block = self.if_else_block()
 
         return Node(node_type, '', condition, if_block_statement, else_block)
 
@@ -178,7 +178,7 @@ class Parser:
         variable_name: str = current.lexeme
         self.consume(TokenType.COLON_ASSIGN)
 
-        self.variables.add(variable_name)
+        self.ast.variables.add(variable_name)
 
         expression_node: Node = self.expression()
         variable_declaration_node: Node = Node(NodeType.VARIABLE_DECLARATION, variable_name)
@@ -283,7 +283,7 @@ class Parser:
         current: Token = self.get(0)
 
         if self.match(TokenType.NUMBER_CONST):
-            number_node: Node = Node(NodeType.NUMBER_CONST, current.lexeme)
+            number_node: Node = Node(NodeType.INTEGER_CONST, current.lexeme)
             return number_node
 
         if self.match(TokenType.STRING_CONST):
@@ -299,7 +299,7 @@ class Parser:
             if self.package_is_exists(identifier):
                 return self.package_identifier(identifier)
 
-            if self.variables.contains(identifier):
+            if self.ast.variables.contains(identifier):
                 return Node(NodeType.USING_VARIABLE, identifier)
 
         if current.type == TokenType.LPAREN:
@@ -332,7 +332,7 @@ class Parser:
                 if pckg_type == NodeType.PRINT_OPERATOR:
                     if self.match(TokenType.LPAREN):
                         arg = self.expression()
-                        if arg.type not in [NodeType.STRING_CONST, NodeType.NUMBER_CONST]:
+                        if arg.type not in [NodeType.STRING_CONST, NodeType.INTEGER_CONST]:
                             raise Exception("STRING OR NUMBER WAS EXPECTED IN PRINT OPERATOR")
 
                         if not self.match(TokenType.RPAREN):

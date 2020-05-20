@@ -18,3 +18,12 @@ class Node:
     def hangup_child1(self, child):
         if child is not None and child != self:
             self.child_nodes.append(child)
+
+    @staticmethod
+    def is_comparison_operator(type_: NodeType):
+        return type_ == NodeType.LESS or \
+               type_ == NodeType.GREATER or \
+               type_ == NodeType.LESS_EQUAL or \
+               type_ == NodeType.GREATER_EQUAL or \
+               type_ == NodeType.EQUAL or \
+               type_ == NodeType.NOT_EQUAL

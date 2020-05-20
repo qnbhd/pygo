@@ -1,11 +1,11 @@
-from src.lexer.token.token import Token
-from src.lexer.lexer import Lexer
-from src.parser.ast.ast import AST
-from src.parser.ast.node import Node
-from src.parser.ast.node_type import NodeType
 from src.parser.parser import Parser
+from src.asm.Asm import Asm
 
 if __name__ == "__main__":
     parser = Parser("example.go")
     ss = parser.parse()
+
+    asm: Asm = Asm('test.asm', parser.ast)
+    asm.generate()
+
 

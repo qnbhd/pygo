@@ -1,12 +1,16 @@
 from src.parser.ast.node import Node
 from src.parser.ast.node_type import NodeType
+from src.parser.vartable.variables_table import VariableTable
 
 
 class AST:
     tree: Node
 
+    variables: VariableTable
+
     def __init__(self):
         self.tree = None
+        self.variables = VariableTable()
 
     def print_recursive(self, current_node: Node, level: int):
         if current_node is None:

@@ -1,21 +1,25 @@
 package main
 
 func main() {
+    result := 0
+
     b := 5
-    c := 5
+    c1 := 6
 
-    b = 100
+    b = 50
 
-
-    for i := 0; i <= 10; i = i + 1 {
-        b = b + i
+    if b == 100 {
+        for i := 0; i <= 10; i = i + 1 {
+            b = b + i
+        }
+    } else if b < 100 && c1 == 5 {
+        b = 1000
+    } else if b < 100 && c1 == 6 {
+        b = 2000
     }
 
-    if b == 100 && c != 100 {
-        b = b + i * 8 - c + 98 * b * b / c
-    }
-    else {
-        b = 1
-    }
 
+
+
+    result = b
 }
