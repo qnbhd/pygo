@@ -63,12 +63,12 @@ _compare_not_equal1:
 _compare_end1:
    pop eax
    cmp eax, 0
-   je _if_else_574773
-_if_start_574773:
+   je _if_else_267978
+_if_start_267978:
    push 0
    pop eax
    mov i_variable[ebp], eax
-_loop_start_955587:
+_loop_start_989854:
    push i_variable[ebp]
    pop ecx
    push 10
@@ -82,7 +82,7 @@ _compare_not_equal2:
 _compare_end2:
    pop eax
    cmp eax, 0
-   je _loop_end_955587
+   je _loop_end_989854
    push b_variable[ebp]
    push i_variable[ebp]
    pop eax
@@ -91,7 +91,7 @@ _compare_end2:
    push eax
    pop eax
    mov b_variable[ebp], eax
-_loop_aftereffects_955587:
+_loop_aftereffects_989854:
    push i_variable[ebp]
    push 1
    pop eax
@@ -100,10 +100,10 @@ _loop_aftereffects_955587:
    push eax
    pop eax
    mov i_variable[ebp], eax
-   jmp _loop_start_955587
-_loop_end_955587:
-   jmp _if_end_574773
-_if_else_574773:
+   jmp _loop_start_989854
+_loop_end_989854:
+   jmp _if_end_267978
+_if_else_267978:
    push b_variable[ebp]
    pop ecx
    push 100
@@ -128,13 +128,13 @@ _compare_not_equal4:
 _compare_end4:
    pop eax
    cmp eax, 0
-   je _if_else_496028
-_if_start_496028:
+   je _if_else_749189
+_if_start_749189:
    push 1000
    pop eax
    mov b_variable[ebp], eax
-   jmp _if_end_496028
-_if_else_496028:
+   jmp _if_end_749189
+_if_else_749189:
    push b_variable[ebp]
    pop ecx
    push 100
@@ -159,14 +159,14 @@ _compare_not_equal6:
 _compare_end6:
    pop eax
    cmp eax, 0
-   je _if_end_964234
-_if_start_964234:
+   je _if_end_347391
+_if_start_347391:
    push 2000
    pop eax
    mov b_variable[ebp], eax
-_if_end_964234:
-_if_end_496028:
-_if_end_574773:
+_if_end_347391:
+_if_end_749189:
+_if_end_267978:
    push b_variable[ebp]
    pop eax
    mov result_variable[ebp], eax

@@ -8,9 +8,6 @@ from src.parser.ast.node import NodeType
 from src.parser.packages import Packages
 
 
-debug = True
-
-
 class Parser:
     lexer: Lexer
     ast: Ast
@@ -19,7 +16,6 @@ class Parser:
     pos: int
 
     tokens_count: int
-
 
     def __init__(self, file_path):
         self.lexer = Lexer()
@@ -159,13 +155,13 @@ class Parser:
         return Node(node_type, '', condition, if_block_statement, else_block)
 
     def for_block(self) -> Node:
-        initialization_node: Node = self.expression_statement()
+        initialization_node: Node = self.expression()
         self.consume(TokenType.SEMICOLON)
 
         condition_node: Node = self.expression()
         self.consume(TokenType.SEMICOLON)
 
-        aftereffect_node: Node = self.expression_statement()
+        aftereffect_node: Node = self.expression()
 
         statement_node: Node = self.bracket_expression()
 
@@ -186,7 +182,12 @@ class Parser:
         return Node(NodeType.SET, '', variable_declaration_node, expression_node)
 
     def expression_statement(self) -> Node:
-        return self.expression()
+
+        node = self.expression()
+
+        self.match(TokenType.SEMICOLON)
+
+        return node
 
     def expression(self) -> Node:
         return self.assignment_expression()
@@ -195,7 +196,6 @@ class Parser:
         node: Node = self.logical_or()
 
         if self.match(TokenType.ASSIGN):
-
             assignment_expression_node: Node = self.assignment_expression()
 
             return Node(NodeType.SET, '', node, assignment_expression_node)

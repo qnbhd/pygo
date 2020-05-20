@@ -11,7 +11,6 @@ from src.asm.AsmConstants import *
 class AsmPlace(Enum):
     DATA = auto(),
     BEFORE_MAIN = auto(),
-    FUNCTION_IMPLEMENTATIONS = auto(),
     MAIN = auto()
 
 
@@ -32,7 +31,7 @@ class Asm:
 
     # asm places
     data: AsmPlaceString
-    beforeMain: AsmPlaceString
+    before_main: AsmPlaceString
     main: AsmPlaceString
     current_place_for_writing: AsmPlaceString
 
@@ -43,7 +42,7 @@ class Asm:
         self.filename = filename
 
         self.data: AsmPlaceString = AsmPlaceString()
-        self.beforeMain: AsmPlaceString = AsmPlaceString()
+        self.before_main: AsmPlaceString = AsmPlaceString()
         self.main: AsmPlaceString = AsmPlaceString()
 
         self.current_place_for_writing = self.main
@@ -63,19 +62,19 @@ class Asm:
 
         self.init_print_result_function()
 
-        self.write(asmHeader)
-        self.write(startData)
+        self.write(asm_header)
+        self.write(start_data)
         self.write(self.data.value)
-        self.write(endData)
-        self.write(textStart)
-        self.write(self.beforeMain.value)
-        self.write(labelStart)
-        self.write(procProlog + str(len(self.ast.variables.table) * 4 + 8) + ", 0")
+        self.write(end_data)
+        self.write(text_start)
+        self.write(self.before_main.value)
+        self.write(label_start)
+        self.write(proc_prolog + str(len(self.ast.variables.table) * 4 + 8) + ", 0")
         self.write(self.main.value)
-        self.write(procEpilogue)
-        self.write(functionReturn)
-        self.write(textEnd)
-        self.write(labelEnd)
+        self.write(proc_epilogue)
+        self.write(function_return)
+        self.write(text_end)
+        self.write(label_end)
 
         self.file.close()
 
@@ -103,7 +102,6 @@ class Asm:
 
         self.set_place_for_writing(AsmPlace.MAIN)
 
-
     def init_variables(self):
         for variable in self.ast.variables.table:
             self.stack_variable(variable)
@@ -117,7 +115,6 @@ class Asm:
     def init_print_result_function(self):
         self.raw(tab + "push result_variable[ebp]\n")
         self.raw(tab + "call print\n")
-
 
     def block_to_asm(self):
         self.block_to_asm_recursive(self.ast.tree)
@@ -333,7 +330,7 @@ class Asm:
         if place == AsmPlace.DATA:
             self.current_place_for_writing = self.data
         elif place == AsmPlace.BEFORE_MAIN:
-            self.current_place_for_writing = self.beforeMain
+            self.current_place_for_writing = self.before_main
         elif place == AsmPlace.MAIN:
             self.current_place_for_writing = self.main
 
@@ -345,7 +342,7 @@ class Asm:
 
     def stack_variable(self, variable: Variable):
         variable_name = variable.name
-        self.beforeMain.append(variable_name + "_variable = " + "-" + str(self.byte_on_stack) + "\n")
+        self.before_main.append(variable_name + "_variable = " + "-" + str(self.byte_on_stack) + "\n")
         self.byte_on_stack += 4
 
     def push(self, value: str):
