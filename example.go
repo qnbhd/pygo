@@ -1,16 +1,20 @@
 package main
 
+import (
+    "fmt"
+)
+
 func main() {
-    result := 0
 
     b := 5
     c1 := 6
 
-    b = 50
+    b = 100
 
     if b == 100 {
         for i := 0; i <= 10; i = i + 1 {
             b = b + i
+            fmt.Print(b)
         }
     } else if b < 100 && c1 == 5 {
         b = 1000
@@ -19,7 +23,5 @@ func main() {
     }
 
 
-
-
-    result = b
+    fmt.Print(c1 + b)
 }

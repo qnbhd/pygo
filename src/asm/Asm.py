@@ -60,7 +60,6 @@ class Asm:
 
         self.block_to_asm()
 
-        self.init_print_result_function()
 
         self.write(asm_header)
         self.write(start_data)
@@ -112,9 +111,6 @@ class Asm:
         self.raw(tab + "div_op_2 dd 0\n")
         self.set_place_for_writing(AsmPlace.MAIN)
 
-    def init_print_result_function(self):
-        self.raw(tab + "push result_variable[ebp]\n")
-        self.raw(tab + "call print\n")
 
     def block_to_asm(self):
         self.block_to_asm_recursive(self.ast.tree)
@@ -201,6 +197,12 @@ class Asm:
 
         elif current_node.type == NodeType.EXPRESSION:
             self.block_to_asm_recursive(current_node.op1)
+            return
+        elif current_node.type == NodeType.PRINT:
+            self.expression_recursive(current_node.op1)
+            self.pop(eax)
+            self.push(eax)
+            self.raw(tab + "call print\n")
             return
 
         self.block_to_asm_recursive(current_node.op1)

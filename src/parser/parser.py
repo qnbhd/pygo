@@ -72,15 +72,10 @@ class Parser:
 
         package_node: Node = Node(NodeType.PACKAGE, package_name)
 
-        # if self.match(TokenType.IMPORT):
-        #
-        #     self.consume(TokenType.LPAREN)
-        #     import_node = Node(NodeType.IMPORT)
-        #
-        #     while not self.match(TokenType.RPAREN):
-        #         import_node.hangup_child(self.primary())
-        #
-        #     package.hangup_child(import_node)
+        if self.match(TokenType.IMPORT):
+            self.consume(TokenType.LPAREN)
+            self.consume(TokenType.STRING_CONST)
+            self.consume(TokenType.RPAREN)
 
         self.consume(TokenType.FUNC)
 
@@ -137,7 +132,22 @@ class Parser:
         if self.match(TokenType.FOR):
             return self.for_block()
 
+        if self.get(0).lexeme == 'fmt':
+            return self.print_operator()
+
         return self.expression_statement()
+
+    def print_operator(self):
+        self.consume(TokenType.IDENTIFIER)
+        self.consume(TokenType.POINT)
+        if self.get(0).lexeme != 'Print':
+            raise Exception("In this package, only the 'Print' function is available.")
+        self.consume(TokenType.IDENTIFIER)
+        self.consume(TokenType.LPAREN)
+        arg_node: Node = self.expression()
+        self.consume(TokenType.RPAREN)
+
+        return Node(NodeType.PRINT, '', arg_node)
 
     def if_else_block(self) -> Node:
         condition = self.expression()

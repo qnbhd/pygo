@@ -50,4 +50,6 @@ class NodeType(Enum):
 
     BRACKET_BLOCK = auto(),
     PACKAGE = auto(),
-    IMPORT = auto()
+    IMPORT = auto(),
+
+    PRINT = auto()
