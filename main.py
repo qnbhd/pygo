@@ -3,7 +3,7 @@ from src.asm.Asm import Asm
 import os
 import shutil
 import sys
-
+import pathlib
 
 def make(to_file):
     fin = open("gen.bat", 'w')
@@ -16,6 +16,9 @@ def make(to_file):
 
     os.system("gen.bat")
     os.remove("gen.bat") 
+
+    if not pathlib.Path('bin').exists():
+        os.mkdir('bin')
 
     shutil.move(to_file + '.asm', 'bin\\' + to_file + '.asm')
     shutil.move(to_file + '.obj', 'bin\\' + to_file + '.obj')
