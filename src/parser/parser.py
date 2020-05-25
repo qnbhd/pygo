@@ -24,7 +24,8 @@ class Parser:
         self.tokens = self.lexer.tokenize()
         self.pos = 0
 
-        self.lexer.print()
+        # self.lexer.print()
+        self.lexer.log_out()
 
         self.tokens_count = len(self.tokens)
         self.packages_map = Packages()
@@ -98,11 +99,10 @@ class Parser:
         statement_list_node: Node = Node(NodeType.STATEMENT_LIST, '', statement_list_package_node, statement)
 
         self.ast.tree.op1 = statement_list_node
-
-        print("-------------AST TREE-------------")
-        self.ast.print()
-        print("----------VARIABLE TABLE----------")
-        self.ast.variables.print()
+        # self.ast.print()
+        self.ast.log_out()
+        # self.ast.variables.print()
+        self.ast.variables.log_out()
 
     def bracket_expression(self) -> Node:
 

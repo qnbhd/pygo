@@ -38,3 +38,10 @@ class VariableTable:
     def print(self):
         for variable in self.table:
             variable.print()
+
+    def log_out(self):
+        file = open("vars", "w")
+        for variable in self.table:
+            file.write("Name: " + variable.name)
+            file.write("\n")
+        file.close()

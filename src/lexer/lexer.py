@@ -75,6 +75,15 @@ class Lexer:
         for token in self.tokens:
             print(token)
 
+    def log_out(self):
+        log = open("lex", "w")
+
+        for token in self.tokens:
+            log.write('('+str(token)[11:])
+            log.write("\n")
+
+        log.close()
+
     @staticmethod
     def is_adj_decimal(first: Token, second: Token) -> bool:
         return first.type == TokenType.NUMBER_CONST and second.type == TokenType.POINT
