@@ -1,4 +1,4 @@
-# PYGO - Python-based go-compiler
+# PYGO - Python-based go-superset-compiler
 
 ![Logotype](https://github.com/qnbhd/pygo/blob/master/misc/logo.png)
 
