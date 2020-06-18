@@ -21,7 +21,7 @@ class Parser:
         self.lexer = Lexer()
         self.lexer.read_from_file(file_path)
         self.ast = Ast()
-        self.tokens = self.lexer.tokenize()
+        self.tokens = self.lexer.tokenize() # список токенов!
         self.pos = 0
 
         # self.lexer.print()
@@ -159,8 +159,8 @@ class Parser:
         else_block = None
         if self.match(TokenType.ELSE):
             node_type = NodeType.IF_ELSE
-            self.match(TokenType.IF)
-            else_block = self.if_else_block()
+            self.match(TokenType.ELSE)
+            else_block = self.bracket_expression()
 
         return Node(node_type, '', condition, if_block_statement, else_block)
 

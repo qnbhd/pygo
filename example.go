@@ -6,11 +6,14 @@ import (
 
 func main() {
 
-    b := 5
-    c1 := 6
+    a := 1
+    b := -2
+    D := 100
 
-
-    for i:=0; i < 10; i = i + 1 {
-        fmt.Print(i)
+    if a < b {
+        fmt.Print(1)
+    } else {
+        fmt.Print(0)
     }
+
 }

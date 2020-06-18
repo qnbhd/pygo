@@ -8,10 +8,10 @@ from src.parser.variable.variable import Variable
 from src.asm.AsmConstants import *
 
 
-class AsmPlace(Enum):
-    DATA = auto(),
-    BEFORE_MAIN = auto(),
-    MAIN = auto()
+class AsmPlace(Enum): 
+    DATA = auto(), # сегмент данных
+    BEFORE_MAIN = auto(), # до метки __start:
+    MAIN = auto() # main
 
 
 class AsmPlaceString:
@@ -52,7 +52,7 @@ class Asm:
 
         self.count_compare = 0
 
-    def generate(self):
+    def generate(self): # генерируем
         self.init_variables()
         self.init_operands_for_division()
 
@@ -61,8 +61,8 @@ class Asm:
         self.block_to_asm()
 
 
-        self.write(asm_header)
-        self.write(start_data)
+        self.write(asm_header) # .586
+        self.write(start_data) 
         self.write(self.data.value)
         self.write(end_data)
         self.write(text_start)
@@ -84,18 +84,8 @@ class Asm:
 
         self.raw("print PROC\n   enter 0, 0\n")
 
-        self.push(eax)
-        self.push(ebx)
-        self.push(ecx)
-        self.push(edx)
-
         self.mov(eax, "[ebp + 8]")
         self.raw(tab + "invoke crt_printf, offset print_format, eax\n")
-
-        self.pop(eax)
-        self.pop(ebx)
-        self.pop(ecx)
-        self.pop(edx)
 
         self.raw("   leave \n   ret 4\nprint ENDP")
 
@@ -144,8 +134,8 @@ class Asm:
             endLabel: str = "_if_end_" + str(randId)
             elseLabel: str = "_if_else_" + str(randId)
 
-            self.block_to_asm_recursive(condition)
-            self.pop(eax)
+            self.block_to_asm_recursive(condition) # black box
+            self.pop(eax) # последнее сравнение, там обязательно должен быть результат 0/1
             self.cmp(eax, null)
 
             endOrElseLabel: str = endLabel
