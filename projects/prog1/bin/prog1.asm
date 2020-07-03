@@ -54,19 +54,19 @@ _compare_not_equal1:
 _compare_end1:
    pop eax
    cmp eax, 0
-   je _if_else_483824
-_if_start_483824:
+   je _if_else_345355
+_if_start_345355:
    push 1
    pop eax
    push eax
    call print
-   jmp _if_end_483824
-_if_else_483824:
+   jmp _if_end_345355
+_if_else_345355:
    push 0
    pop eax
    push eax
    call print
-_if_end_483824:
+_if_end_345355:
 
    leave
 
